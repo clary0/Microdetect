@@ -1,0 +1,260 @@
+﻿/* FONDO GENERAL PARA TODAS LAS PÁGINAS */
+body {
+    min-height: 100vh;
+    width: 100vw;
+    background: linear-gradient(120deg, #e0f7ef 0%, #b7e5d8 100%);
+    background-attachment: fixed;
+}
+/* LOGIN FULLPAGE */
+.login-fullpage {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(120deg, #e0f7ef 0%, #b7e5d8 100%);
+    padding: 0;
+    margin: 0;
+}
+
+.login-form-full {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    padding: 40px 32px 32px 32px;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-form-full .form-label {
+    font-weight: 600;
+}
+
+.login-form-full .btn-primary {
+    background: #4a8bff;
+    border: none;
+}
+
+.login-form-full .btn-primary:hover {
+    background: #03659a;
+}
+
+/* Estilo para tu carrusel */
+.custom-carousel {
+    width: 100%;
+    margin: 30px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 3px solid #b7e5d8;
+    box-shadow: 0px 5px 15px rgb(6, 208, 73);
+}
+
+.custom-carousel img {
+    height: 450px;
+    object-fit: cover;
+}
+
+/* Indicadores (dots) */
+.carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    background-color: #a6d8c9;
+    border-radius: 50%;
+}
+
+.carousel-indicators .active {
+    background-color: #009b74;
+}
+
+/* Flechas */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(100%);
+    width: 45px;
+    height: 45px;
+}
+
+/* NAVBAR UNIFICADO */
+.main-nav {
+    width: 100%;
+    background: #7fb58c;
+    padding: 10px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: 0 2px 8px rgb(21, 169, 80);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.main-nav .nav-logo img {
+    height: 55px;
+    margin-right: 40px;
+    border-radius: 6px;
+
+}
+
+.main-nav .nav-menu {
+    display: flex;
+    gap: 35px;
+}
+
+.main-nav .nav-menu a {
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 600;
+    color: #096026;
+    transition: 0.3s ease;
+}
+
+.main-nav .nav-menu a:hover {
+    color: #0d9a24;
+    transform: scale(1.05);
+}
+
+/* RESPONSIVE*/
+@media (max-width: 750px) {
+    .main-nav {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .main-nav .nav-logo img {
+        margin-bottom: 12px;
+    }
+
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+/* CONTENEDOR PRINCIPAL */
+.contenedor {
+    padding: 40px;
+}
+
+
+/* SECCIÓN SERVICIOS */
+.servicios {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.card {
+    width: 30%;
+    text-align: center;
+}
+
+/* Imagen tipo */
+.img-placeholder {
+    width: 100%;
+    height: 180px;
+    border: 3px solid #038f11;
+    border-radius: 10px;
+    background: #eee;
+    position: relative;
+}
+
+
+/* Cuadros de texto */
+.card p {
+    margin-top: 20px;
+    border: 3px solid #038f11;
+    padding: 20px;
+    line-height: 1.4;
+    text-align: left;
+}
+
+/* contactanos */
+/* CONTENEDOR GENERAL */
+.contacto-container {
+    width: 100%;
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* TÍTULO CENTRAL */
+.titulo {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 35px;
+    color: #034e12;
+}
+
+/* TARJETA CENTRAL */
+.contacto-card {
+    width: 100%;
+    max-width: 600px;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* FORMULARIO */
+.contacto-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* INPUTS */
+.contacto-card input,
+.contacto-card textarea {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    font-size: 1rem;
+    transition: 0.3s ease;
+}
+
+/* EFECTO AL CLIC */
+.contacto-card input:focus,
+.contacto-card textarea:focus {
+    border-color: #4a8bff;
+    outline: none;
+    box-shadow: 0 0 6px rgba(74,139,255,0.4);
+}
+
+/* TEXTAREA */
+.contacto-card textarea {
+    resize: none;
+    height: 130px;
+}
+
+/* BOTÓN */
+.contacto-card button {
+    padding: 14px;
+    background: #4a8bff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}

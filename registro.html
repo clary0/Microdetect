@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registro</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+<nav class="main-nav">
+    <div class="nav-content">
+      <div class="nav-logo">
+        <img src="img/logo1.jpg" alt="Logo">
+      </div>
+      <div class="nav-menu">
+        <a href="inicio.html">Inicio</a>
+        <a href="login.html">Iniciar sesión</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="contactanos.html">Contacto</a>
+      </div>
+    </div>
+
+    <!--formulario-->
+</nav>
+
+  <main class="login-fullpage">
+    <form id="registerForm" class="login-form-full" novalidate>
+      <h2 class="h3 mb-3 text-center">Crear cuenta</h2>
+      <p class="text-muted small text-center">Completa los campos para registrarte.</p>
+
+      <div class="mb-3">
+        <label for="fullName" class="form-label">Nombre completo</label>
+        <input type="text" id="fullName" class="form-control" required minlength="2">
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo electrónico</label>
+        <input type="email" id="email" class="form-control" required>
+      </div>
+
+      <div class="row g-2">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Contraseña</label>
+          <div class="input-group">
+            <input type="password" id="password" class="form-control" required minlength="8">
+                    <button class="btn btn-outline-secondary" type="button" id="togglePwd" aria-label="Mostrar/Ocultar contraseña">
+                      <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24"><path stroke="#333" stroke-width="2" d="M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z"/><circle cx="12" cy="12" r="3.5" stroke="#333" stroke-width="2"/></svg>
+                    </button>
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Confirmar contraseña</label>
+          <input type="password" id="confirmPassword" class="form-control" required minlength="8">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="phone" class="form-label">Teléfono (opcional)</label>
+        <input type="tel" id="phone" class="form-control">
+      </div>
+
+      <div class="d-grid">
+        <button id="submitBtn" type="submit" class="btn btn-primary btn-lg">Registrarme</button>
+      </div>
+
+      <div id="alertPlaceholder" class="mt-3"></div>
+
+      <div class="text-center small mt-4 text-muted">
+        ¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a>
+      </div>
+    </form>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+ <!-- FIREBASE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBc9hdSjOQ_qwlxWKcMScLqe5JjMOnbyZg",
+      authDomain: "bdbacterias-68671.firebaseapp.com",
+      projectId: "bdbacterias-68671",
+      storageBucket: "bdbacterias-68671.appspot.com",
+      messagingSenderId: "650473208562",
+      appId: "1:650473208562:web:52da42726f00e5c0df2e6b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    function showAlert(msg, type = "danger") {
+      document.getElementById("alertPlaceholder").innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show">
+          ${msg}
+          <button class="btn-close" data-bs-dismiss="alert"></button>
+        </div>`;
+    }
+
+    document.getElementById("togglePwd").addEventListener("click", () => {
+      const pwd = document.getElementById("password");
+      pwd.type = pwd.type === "password" ? "text" : "password";
+    });
+
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const pass = document.getElementById("password").value.trim();
+      const confirm = document.getElementById("confirmPassword").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      if (pass !== confirm) {
+        showAlert("Las contraseñas no coinciden.");
+        return;
+      }
+
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.innerHTML = "Registrando...";
+
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+
+        await updateProfile(cred.user, { displayName: fullName });
+
+        await setDoc(doc(db, "users", cred.user.uid), {
+          name: fullName,
+          email: email,
+          phone: phone || null,
+          createdAt: new Date()
+        });
+
+        showAlert("Registro exitoso", "success");
+        document.getElementById("registerForm").reset();
+
+      } catch (err) {
+        showAlert(err.message, "danger");
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = "Registrarme";
+    });
+  </script>
+
+  
+</body>
+</html>

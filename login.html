@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+ 
+</head>
+
+<body>
+  
+<!-- NAVBAR-->
+<nav class="main-nav">
+    <div class="nav-content">
+      <div class="nav-logo">
+        <img src="img/logo1.jpg" alt="Logo">
+      </div>
+      <div class="nav-menu">
+        <a href="inicio.html">Inicio</a>
+        <a href="login.html">Iniciar sesión</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="contactanos.html">Contacto</a>
+      </div>
+    </div>
+</nav>
+
+  <main class="login-fullpage">
+    <form id="loginForm" class="login-form-full">
+      <h2 class="h3 mb-3 text-center">Iniciar Sesión</h2>
+      <p class="text-muted small text-center">Ingresa tus credenciales para continuar.</p>
+
+      <div class="mb-3">
+        <label class="form-label">Correo electrónico</label>
+        <input type="email" id="email" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Contraseña</label>
+        <div class="input-group">
+          <input type="password" id="password" class="form-control" required>
+                  <button class="btn btn-outline-secondary" type="button" id="togglePwd" aria-label="Mostrar/Ocultar contraseña">
+                    <svg id="icon-eye" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24"><path stroke="#333" stroke-width="2" d="M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z"/><circle cx="12" cy="12" r="3.5" stroke="#333" stroke-width="2"/></svg>
+                  </button>
+        </div>
+      </div>
+
+      <div class="d-grid">
+        <button class="btn btn-primary btn-lg" id="loginBtn" type="submit">Entrar</button>
+      </div>
+
+      <div id="alertPlaceholder" class="mt-3"></div>
+
+      <div class="text-center small mt-4">
+        ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a>
+      </div>
+    </form>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- FIREBASE MODULAR -->
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    // TU CONFIG DE FIREBASE
+    const firebaseConfig = {
+      apiKey: "AIzaSyBc9hdSjOQ_qwlxWKcMScLqe5JjMOnbyZg",
+      authDomain: "bdbacterias-68671.firebaseapp.com",
+      projectId: "bdbacterias-68671",
+      storageBucket: "bdbacterias-68671.appspot.com",
+      messagingSenderId: "650473208562",
+      appId: "1:650473208562:web:52da42726f00e5c0df2e6b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    function showAlert(msg, type = "danger") {
+      document.getElementById("alertPlaceholder").innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show">
+          ${msg}
+          <button class="btn-close" data-bs-dismiss="alert"></button>
+        </div>`;
+    }
+
+    document.getElementById("togglePwd").addEventListener("click", () => {
+      const pwd = document.getElementById("password");
+      pwd.type = pwd.type === "password" ? "text" : "password";
+    });
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const pass = document.getElementById("password").value.trim();
+
+      const btn = document.getElementById("loginBtn");
+      btn.disabled = true;
+      btn.innerHTML = "Entrando...";
+
+      try {
+        const userCred = await signInWithEmailAndPassword(auth, email, pass);
+
+        showAlert("Inicio de sesión exitoso ✔", "success");
+
+        // Redirigir después de iniciar sesión
+        setTimeout(() => {
+          window.location.href = "inicio.html"; // Cambia a la página que tengas
+        }, 800);
+
+      } catch (err) {
+        showAlert(err.message);
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = "Entrar";
+    });
+
+  </script>
+
+
+
+</body>
+</html>
