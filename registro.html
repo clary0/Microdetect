@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Registro</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -23,9 +23,9 @@
       </div>
     </div>
 
-    <!--formulario-->
 </nav>
 
+    <!--formulario-->
   <main class="login-fullpage">
     <form id="registerForm" class="login-form-full" novalidate>
       <h2 class="h3 mb-3 text-center">Crear cuenta</h2>
@@ -73,6 +73,37 @@
         ¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a>
       </div>
     </form>
+
+    <section id="welcomePanel" class="welcome-panel" hidden aria-live="polite">
+      <div class="welcome-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="m5 12.5 4.2 4.2L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="eyebrow">CUENTA LISTA</p>
+      <h1>Bienvenido, <span id="welcomeName">investigador</span>.</h1>
+      <p class="welcome-copy">Tu espacio para convertir imágenes de placas Petri en resultados claros ya está preparado.</p>
+
+      <div class="welcome-features">
+        <div class="welcome-feature">
+          <span>01</span>
+          <div><strong>Analiza tus muestras</strong><small>Cuenta colonias con rapidez y consistencia.</small></div>
+        </div>
+        <div class="welcome-feature">
+          <span>02</span>
+          <div><strong>Calcula UFC/mL</strong><small>Obtén resultados listos para interpretar.</small></div>
+        </div>
+        <div class="welcome-feature">
+          <span>03</span>
+          <div><strong>Guarda tu historial</strong><small>Mantén tus análisis ordenados en un solo lugar.</small></div>
+        </div>
+      </div>
+
+      <div class="welcome-actions">
+        <a class="welcome-primary" href="index.html">Explorar BioConteo <span aria-hidden="true">→</span></a>
+        <a class="welcome-secondary" href="servicios.html">Ver servicios</a>
+      </div>
+    </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -138,8 +169,10 @@
           createdAt: new Date()
         });
 
-        showAlert("Registro exitoso", "success");
-        document.getElementById("registerForm").reset();
+        document.getElementById("welcomeName").textContent = fullName.split(" ")[0];
+        document.getElementById("registerForm").hidden = true;
+        document.getElementById("welcomePanel").hidden = false;
+        document.title = "Bienvenido a BioConteo";
 
       } catch (err) {
         showAlert(err.message, "danger");
