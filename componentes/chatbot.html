@@ -1,0 +1,32 @@
+<div class="site-chatbot">
+    <button class="chat-launcher" type="button" aria-expanded="false" aria-controls="site-chat-panel">
+        <span class="chat-launcher-icon" aria-hidden="true"></span>
+        <span>Ayuda</span>
+    </button>
+
+    <section class="chat-panel" id="site-chat-panel" role="dialog" aria-label="Asistente de Microdetect" aria-modal="false" hidden>
+        <header class="chat-header">
+            <div>
+                <h2>Asistente Microdetect</h2>
+                <p>Respuestas rápidas sobre la plataforma</p>
+            </div>
+            <button class="chat-close" type="button" aria-label="Cerrar chat">&times;</button>
+        </header>
+
+        <div class="chat-messages" role="log" aria-live="polite" aria-relevant="additions">
+            <div class="chat-message chat-message-bot">Hola. Puedo orientarte sobre análisis de muestras, servicios, registro y contacto.</div>
+        </div>
+
+        <div class="chat-suggestions" aria-label="Preguntas sugeridas">
+            <button type="button" data-chat-prompt="¿Qué hace Microdetect?">¿Qué hace Microdetect?</button>
+            <button type="button" data-chat-prompt="¿Qué significa UFC/mL?">¿Qué es UFC/mL?</button>
+            <button type="button" data-chat-prompt="¿Cómo creo una cuenta?">Crear cuenta</button>
+        </div>
+
+        <form class="chat-form">
+            <input type="text" name="message" placeholder="Escribe tu pregunta" aria-label="Escribe tu pregunta" autocomplete="off" required>
+            <button type="submit">Enviar</button>
+        </form>
+        <p class="chat-note">Asistente informativo de Microdetect</p>
+    </section>
+</div>
